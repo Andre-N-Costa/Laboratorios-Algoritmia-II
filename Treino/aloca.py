@@ -1,6 +1,5 @@
 def aloca(prefs):
-    alunos = prefs.keys()
-    alunos = sorted(alunos)
+    alunos = sorted(prefs.keys())
     listaproj = []
     retl = []
     for i in range(6):
