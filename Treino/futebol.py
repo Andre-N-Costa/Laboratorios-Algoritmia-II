@@ -31,7 +31,7 @@ def tabela(jogos):
     while i < len(equipas):
         sort1.append((equipas[i],pont[i],dgolos[i]))
         i+=1
-    sort1 = sorted(sort1, key = lambda x: (-x[1],-x[2]))
+    sort1 = sorted(sort1, key = lambda x: (-x[1],-x[2],x[0]))
     for i in sort1:
         final.append((i[0],i[1]))
     return final
