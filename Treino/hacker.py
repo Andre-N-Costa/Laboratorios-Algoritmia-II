@@ -20,22 +20,16 @@ def hacker(log):
                 keys.append(numeros[i])
             l = 1
             chave = keys[0]
-            print(keys)
             if len(keys) > 1:
-                chave = list(map(lambda x,y: -100 if x != "*" and y != "*" and x != y else (x if x != "*" else y),chave,keys[l]))
+                chave = list(map(lambda x,y: y if x != "*" and y != "*" and x != y else (x if x != "*" else y),chave,keys[l]))
                 l+=1
             while l < len(keys):
-                chave = list(map(lambda x,y: -100 if x != "*" and y != "*" and x != y else (x if x != "*" else y),chave,keys[l]))
+                chave = list(map(lambda x,y: y if x != "*" and y != "*" and x != y else (x if x != "*" else y),chave,keys[l]))
                 l+=1
             chave = list(chave)
-            if chave.count(-100) > 0:
-                if i == len(log) - 1:
-                    newlog.append((numeros[i],emails[i]))
-                else:
-                    newlog.append((numeros[i-1],emails[i-1]))
-            else:
-                if i < len(emails):
-                    newlog.append(("".join(chave),emails[i-1]))
+
+            if i < len(emails):
+                newlog.append(("".join(chave),emails[i-1]))
         else:
             newlog.append((numeros[i],emails[i]))
             i+=1
