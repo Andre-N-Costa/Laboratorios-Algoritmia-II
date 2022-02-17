@@ -8,7 +8,7 @@ def cruzamentos(ruas):
         for rua in ruas:
             if rua[0] == i:
                 no += 1
-            if rua[len(rua)-1] == i:
+            elif rua[len(rua)-1] == i:
                 no += 1
         cruz.append((i,no))
     cruz = sorted(cruz,key = lambda x: (x[1],x[0]))
