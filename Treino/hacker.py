@@ -1,36 +1,19 @@
 def hacker(log):
-    log = sorted(log,key = lambda x : x[1])
-    numeros = []
-    emails = []
-    newlog = []
-    for info in log:
-        numeros.append(info[0])
-        emails.append(info[1])
-    i = 0
-    while i < len(log):
-        if emails.count(emails[i]) > 1:
-            keys = []
-            aux = emails[i]
-            keys.append(numeros[i])
-            i+=1
-            while i < len(log) - 1 and emails[i] == aux:
-                keys.append(numeros[i])
-                i+=1
-            if i == len(log) - 1:
-                keys.append(numeros[i])
-            l = 1
-            chave = keys[0]
-            if len(keys) > 1:
-                chave = list(map(lambda x,y: y if x != "*" and y != "*" and x != y else (x if x != "*" else y),chave,keys[l]))
-                l+=1
-            while l < len(keys):
-                chave = list(map(lambda x,y: y if x != "*" and y != "*" and x != y else (x if x != "*" else y),chave,keys[l]))
-                l+=1
-            chave = list(chave)
-
-            if i < len(emails):
-                newlog.append(("".join(chave),emails[i-1]))
+    atrib = {}
+    final = []
+    for dados in log:
+        if dados[1] not in atrib:
+            atrib[dados[1]] = [dados[0]]
         else:
-            newlog.append((numeros[i],emails[i]))
-            i+=1
-    return sorted(newlog,key = lambda x: x[0].count("*"))
+            atrib[dados[1]].append(dados[0])
+    print(list(atrib.items()))
+    for dado in atrib.items():
+        index = 0
+        cartoes = dado[1]
+        codigo = cartoes[0]
+        index+=1
+        while index < len(cartoes):
+            codigo = list(map(lambda x,y : y if x != "*" and y != "*" and x != y else (x if x != "*" else y), codigo, cartoes[index]))
+            index+=1
+        final.append(("".join(codigo),dado[0]))
+    return sorted(final,key = lambda x : (x[0].count("*"),x[1]))
