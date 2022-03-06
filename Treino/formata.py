@@ -1,27 +1,25 @@
 def formata(codigo):
-    nident = 0;
     newcode = ""
+    identation = 0
     codigo = " ".join(codigo.split())
     codigo = ";".join(codigo.split("; "))
-    codigo = "}".join(codigo.split("} "))
     codigo = "{".join(codigo.split("{ "))
-    print(codigo)
-    for n,elem in enumerate(codigo):
-        if n < len(codigo)-1:
-            if elem == ";":
-                newcode+=";\n" + " "*2*nident
-            elif elem == "{":
-                nident+=1
-                newcode+="{\n" + " "*2*nident
-            elif elem == "}":
-                nident-=1
-                newcode = "".join(list(newcode[:-1]))
-                newcode = "".join(list(newcode[:-1]))
-                newcode+="}\n" + " "*2*nident
-            else:
-                newcode+=elem
+    codigo = "}".join(codigo.split("} "))
+    for i,caracter in enumerate(codigo):
+        if i == len(codigo) -1:
+            print(list(newcode))
+            newcode = newcode.rstrip(" ")
+            print(list(newcode))
+            newcode+=caracter
+        elif caracter == ";":
+            newcode+=caracter + "\n" + "  "*identation
+        elif caracter == "{":
+            identation+=1
+            newcode+=caracter + "\n" + "  "*identation
+        elif caracter == "}":
+            newcode = "".join(list(newcode[:-2]))
+            identation-=1
+            newcode+=caracter + "\n" + "  "*identation
         else:
-            while newcode.endswith(" "):
-                newcode = "".join(list(newcode[:-1]))
-            newcode+=elem
+            newcode+=caracter
     return newcode
