@@ -1,27 +1,25 @@
 def horario(ucs,alunos):
-    consegue = []
-    for aluno in list(alunos.keys()):
-        horas = 0
+    final = []
+    for aluno in alunos.items():
         semana = {}
-        for UC in list(alunos[aluno]):
-            if UC in ucs:
-                a,b,c = ucs[UC]
-                if a not in semana:
-                    semana[a] = (list(range(b, b+c)))
-                    horas+=ucs[UC][2]
-                else:
-                    if len(set(semana[a]).intersection(set(range(b, b+c)))) != 0:
-                        semana["notpossible"] = -1
-                    elif min(list(semana[a])) > max(list(range(b, b+v))):
-                        semana[a] = list(range(b, b+v)) + list(a)
-                        horas+=c
-                    else:
-                        semana[a] = list(semana[a]) + list(range(b, b+c))
-                        horas+=c
+        horas = 0
+        for cadeiras in aluno[1]:
+            if cadeiras not in ucs:
+                semana["impossivel"] = -1
+                break
+            dia,hora,duracao = ucs[cadeiras]
+            horas+=duracao
+            if dia not in semana:
+                semana[dia] = []
+                for i in range(duracao):
+                    semana[dia].append(hora+i)
             else:
-                semana["notpossible"] = -1
-        if "notpossible" not in semana:
-            consegue.append((aluno,horas))
-        print(consegue)
-                    
-    return sorted(consegue,key = lambda x : (-x[1],x[0]))
+                for i in range(duracao):
+                    semana[dia].append(hora+i)
+            if len(set(semana[dia])) < len(semana[dia]):
+                semana["impossivel"] = -1
+            print(semana)
+        if "impossivel" not in semana:
+            final.append((aluno[0],horas))
+        print(final)
+    return sorted(final, key = lambda x : (-x[1],x[0]))
