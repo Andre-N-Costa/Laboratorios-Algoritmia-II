@@ -11,8 +11,8 @@ def buildG(rotas):
             adj[rota[i+2]][rota[i]] = rota[i+1]
             i+=2
     return adj
-    
-    
+
+
 def dijkstra(adj,o):
     dist = {}
     dist[o] = 0
@@ -27,9 +27,11 @@ def dijkstra(adj,o):
             if dist[v] + adj[v][d] < dist[d]:
                 dist[d] = dist[v] + adj[v][d]
     return dist
-    
-    
+
+
 def viagem(rotas,o,d):
+    if len(rotas) == 0:
+        return 0
     adj = buildG(rotas)
     dist = dijkstra(adj,o)
     return dist[d]
