@@ -35,5 +35,4 @@ def area(p,mapa):
     p = (p[1],p[0])
     adj = construirG(mapa)
     vis = bfs(adj,p)
-    print(vis)
     return len(vis)
