@@ -1,3 +1,6 @@
+"""
+80%
+"""
 def maxsoma(lista):
     if lista == []:
         return 0
