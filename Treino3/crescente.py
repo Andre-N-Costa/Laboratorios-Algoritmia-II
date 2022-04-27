@@ -1,3 +1,6 @@
+"""
+90%
+"""
 def crescente(lista):
     dict = {}
     valores = []
