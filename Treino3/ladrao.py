@@ -1,8 +1,10 @@
 """
-50%
+80%
 """
 
 def ladrao(capacidade,objetos):
+    if objetos == []:
+        return 0
     if capacidade == 0:
         return 0
     r = float("-inf")
