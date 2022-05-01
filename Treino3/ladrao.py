@@ -1,5 +1,34 @@
 """
-90%
+70% - programação dinâmica
+"""
+
+def ladrao(capacidade,objetos):
+    if capacidade == 0:
+        return 0
+    d = {}
+    d[0] = 0
+    object = objetos.copy()
+    for v in range(1,capacidade+1):
+        if objetos == []:
+            objetos = object.copy()
+        aux = objetos.copy()
+        valor = float("-inf")
+        for m in objetos:
+            if m[2] <= v:
+                valor = max(valor,m[1] + d[v - m[2]])
+                if valor == m[1] + d[v - m[2]]:
+                        objetos = aux.copy()
+                objetos.remove(m)
+        if valor == float("-inf"):
+            d[v] = d[v-1]
+        else:
+            d[v] = valor
+        print(objetos)
+        print(d)
+    return d[capacidade]
+
+"""
+90% - programação recursiva
 """
 
 def ladrao(capacidade,objetos):
