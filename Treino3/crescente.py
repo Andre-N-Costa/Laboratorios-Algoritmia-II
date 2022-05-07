@@ -8,7 +8,6 @@ def crescente(lista):
         return 0
     for i in reversed(list(range(len(lista)))):
         m = lista[i]
-        aux = lista[i]
         if i == len(lista)-1:
             valores.append(1)
             dict[lista[i]] = 1
