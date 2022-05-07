@@ -23,8 +23,6 @@ def ladrao(capacidade,objetos):
             d[v] = d[v-1]
         else:
             d[v] = valor
-        print(objetos)
-        print(d)
     return d[capacidade]
 
 """

@@ -31,8 +31,6 @@ def saqueaux(mapa,coords,valor):
     if mapa == []:
         return 0
     while coords != (len(mapa[0])-1,len(mapa)-1):
-        print(coords)
-        print(valor)
         if mapa[coords[1]][coords[0]].isdigit():
             valor+= int(mapa[coords[1]][coords[0]])
         countx = 0
