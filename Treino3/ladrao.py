@@ -1,48 +1,63 @@
 """
-70% - programação dinâmica
+90% - memoization
 """
 
 def ladrao(capacidade,objetos):
     if capacidade == 0:
         return 0
-    d = {}
-    d[0] = 0
-    object = objetos.copy()
-    for v in range(1,capacidade+1):
-        if objetos == []:
-            objetos = object.copy()
-        aux = objetos.copy()
-        valor = float("-inf")
-        for m in objetos:
-            if m[2] <= v:
-                valor = max(valor,m[1] + d[v - m[2]])
-                if valor == m[1] + d[v - m[2]]:
-                        objetos = aux.copy()
-                objetos.remove(m)
-        if valor == float("-inf"):
-            d[v] = d[v-1]
-        else:
-            d[v] = valor
-    return d[capacidade]
-
-"""
-90% - programação recursiva
-"""
-
-def ladrao(capacidade,objetos):
-    return ladraoaux(capacidade,objetos,{})
-
-def ladraoaux(capacidade,objetos,d):
-    r = float("-inf")
     if objetos == []:
         return 0
+    return ladraob(capacidade,objetos,0,{})
+
+def ladraoa(capacidade,objetos,objeto,valores,valor,dict):
+    if objetos == []:
+        return valor
     if capacidade == 0:
-        d[capacidade] = 0
         return 0
-    if capacidade-3 in d:
-        return d[capacidade-3]
-    for count,m in enumerate(objetos):
-        if m[2] <= capacidade:
-            r = max(r,m[1]+ladraoaux(capacidade - m[2],objetos[count+1:],d))
-    d[capacidade] = r 
-    return r
+    if capacidade in dict:
+        return dict[capacidade]
+    for c,obj in enumerate(objetos):
+        if obj[2] <=capacidade:
+            valor = max(valor + obj[1],ladraoa(capacidade-obj[2],objetos[c+1:],obj,valores,valor + obj[1],dict))
+            valores.append(valor)
+            valor = objeto[1]
+    if valores == []:
+        return 0
+    dict[capacidade] = max(valores)
+    return dict[capacidade]
+
+def ladraob(capacidade,objetos,dict):
+    if capacidade in dict:
+        return dict[capacidade]
+    valores = []
+    for c,objeto in enumerate(objetos):
+        if objeto[2] <= capacidade:
+            valores.append(ladraoa(capacidade-objeto[2],objetos[c+1:],objeto,[],objeto[1],dict))
+    dict[capacidade] = max(valores)
+    return dict[capacidade]
+
+
+"""
+90% - dinâmica
+"""
+
+def ladraoaux(maxi,capacidade,objetos,objeto,d):
+    valor = objeto[1]
+    for obj in objetos:
+        if obj[2] <= capacidade and capacidade < maxi:
+            valor+=obj[1]
+            capacidade-=obj[2]
+    return valor
+
+def ladrao(capacidade,objetos):
+    d = {}
+    if capacidade == 0:
+        return 0
+    if objetos == []:
+        return 0
+    valores = []
+    for cap in range(1,capacidade+1):
+        for c,objeto in enumerate(objetos):
+            if objeto[2] <=cap:
+                valores.append(ladraoaux(capacidade,cap - objeto[2],objetos[:c] + objetos[c+1:],objeto,d))
+    return max(valores)

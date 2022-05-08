@@ -1,7 +1,3 @@
-"""
-90%
-"""
-
 def validasaux(soma,lista,elem):
     if lista == []:
         return []
@@ -18,6 +14,8 @@ def validasaux(soma,lista,elem):
 def validas(soma,listas):
     if listas == []:
         return []
+    if soma == 0:
+        return listas
     final = []
     for lista in listas:
         for elem in range(len(lista)):
